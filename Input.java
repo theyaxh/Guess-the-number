@@ -2,35 +2,30 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class Input {
+    private Scanner scanner;
     public int userInput;
-    public boolean inputFlag = false;
-    public boolean guessFlag = false;
+
+    public Input() {
+        this.scanner = new Scanner(System.in);
+    }
 
     public int getUserInput() {
-        Scanner scanner = new Scanner(System.in);
-        while(!inputFlag) {
+        while (true) { 
             try {
-                // userInput = getUserInput(scanner);
                 System.out.print("Enter your guess: ");
                 userInput = scanner.nextInt();
+                scanner.nextLine();  // Consume the newline character
 
-                if(Double.isNaN((double) userInput)) {
-                    inputFlag = false; }
-                else {
-                    if(userInput < 1 || userInput > 100) {
-                        inputFlag = false;
-                        throw new IllegalArgumentException("Enter a Integer between 1 and 100");
-                    }
-                    inputFlag = true; 
-                }
+                if (Double.isNaN((double) userInput) || userInput < 1 || userInput > 100) 
+                    throw new IllegalArgumentException("Enter an integer between 1 and 100");
+
+                return userInput; 
             } catch (InputMismatchException e) {
-                System.err.println("Invalid Input! Please enter a valid Integer.");
-                scanner.nextLine(); // preventing infinite loop
+                System.err.println("Invalid Input! Please enter a valid integer.");
+                scanner.nextLine(); 
             } catch (IllegalArgumentException e) {
                 System.err.println("Invalid Input: " + e.getMessage());
             }
         }
-        scanner.close();
-        return userInput;
     }
 }
