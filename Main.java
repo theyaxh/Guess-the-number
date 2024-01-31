@@ -14,7 +14,7 @@ public class Main {
     
     public static void main(String[] args) {
         Input input = new Input();
-        int generatedNumber = generateRandomNumber(100);
+        int generatedNumber = generateRandomNumber(99);
         int userInput;
         boolean guessFlag = false;
         
